@@ -1,4 +1,5 @@
 import { Draggable } from '@hello-pangea/dnd'
+import React from 'react';
 import styled from 'styled-components';
 const Card = styled.div`
   border-radius: 5px;
@@ -12,7 +13,7 @@ interface IDraggableCardProps {
     index: number;
 }
 
-export default function DraggableCard({value, index}:IDraggableCardProps) {
+function DraggableCard({value, index}:IDraggableCardProps) {
   return (
     <Draggable draggableId={value} index={index} key={value}>
                       {(provided) => (
@@ -27,3 +28,4 @@ export default function DraggableCard({value, index}:IDraggableCardProps) {
                     </Draggable>
   )
 }
+export default React.memo(DraggableCard);
