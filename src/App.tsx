@@ -27,16 +27,22 @@ function App() {
   const [todos, setTodos] =useRecoilState(todoState)
   const onDragEnd = (info:DropResult) => {
     console.log('info?',info)
-/*     setTodos(oldTodos=>{
-      const copyTodos = [...oldTodos]
-      //remove items on source.index
-      console.log('delete what?', source.index)
-      console.log('copy array', copyTodos)
-      copyTodos.splice(source.index, 1)
-      //put back the items on the destination.index
-      copyTodos.splice(destination?.index, 0, draggableId)
-      return copyTodos
-    }) */
+    const { destination, draggableId, source } = info; 
+    if(destination?.droppableId === source.droppableId){
+      //check the same board movement
+      setTodos(allBoards=>{
+        const boardCopy = [...allBoards[source.droppableId]]
+        //remove items on source.index
+        boardCopy.splice(source.index, 1)
+        //put back the items on the destination.index
+        boardCopy.splice(destination?.index, 0, draggableId)
+        return {
+          ...allBoards,
+          [source.droppableId]: boardCopy
+        }
+      })
+
+    }
   };
   return (
     <>
