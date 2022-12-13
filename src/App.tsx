@@ -2,11 +2,12 @@ import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea
 import { RecoilState, useRecoilState } from "recoil";
 import styled from "styled-components";
 import { todoState } from "./atoms";
+import { Board } from "./Components/Board";
 import DraggableCard from "./Components/DraggableCard";
 
 const Wrapper = styled.div`
   display: flex;
-  max-width: 470px;
+  max-width: 700px;
   width: 100%;
   margin: 0 auto;
   justify-content: center;
@@ -16,23 +17,17 @@ const Wrapper = styled.div`
 const Boards = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: repeact(1, 1fr);
-`;
-const Board = styled.div`
-  padding: 20px 10px;
-  padding-top: 30px;
-  background-color: ${(props) => props.theme.boardColor};
-  border-radius: 5px;
-  min-height: 200px;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 
 
 function App() {
   const [todos, setTodos] =useRecoilState(todoState)
-  const onDragEnd = ({draggableId, destination, source}:DropResult) => {
-    if(!destination) return ;
-    setTodos(oldTodos=>{
+  const onDragEnd = (info:DropResult) => {
+    console.log('info?',info)
+/*     setTodos(oldTodos=>{
       const copyTodos = [...oldTodos]
       //remove items on source.index
       console.log('delete what?', source.index)
@@ -41,23 +36,16 @@ function App() {
       //put back the items on the destination.index
       copyTodos.splice(destination?.index, 0, draggableId)
       return copyTodos
-    })
+    }) */
   };
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <Wrapper>
           <Boards>
-            <Droppable droppableId="one">
-              {(provided) => (
-                <Board ref={provided.innerRef} {...provided.droppableProps}>
-                  {todos.map((value, index) => (
-                    <DraggableCard key={value} index={index} value={value}/>
-                  ))}
-                  {provided.placeholder}
-                </Board>
-              )}
-            </Droppable>
+            {Object.keys(todos).map((boardId) => (
+              <Board boardId={boardId} key={boardId} todos={todos[boardId]} />
+            ))}
           </Boards>
         </Wrapper>
       </DragDropContext>
