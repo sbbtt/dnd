@@ -28,6 +28,7 @@ function App() {
   const onDragEnd = (info:DropResult) => {
     console.log('info?',info)
     const { destination, draggableId, source } = info; 
+    if (!destination) return;
     if(destination?.droppableId === source.droppableId){
       //check the same board movement
       setTodos(allBoards=>{
@@ -41,7 +42,21 @@ function App() {
           [source.droppableId]: boardCopy
         }
       })
-
+    }
+    if(destination?.droppableId !== source.droppableId){
+      //cross boards event
+      setTodos((allBoards)=>{
+        //find where it begins(source), where to go(target)
+        const sourceBoard = [...allBoards[source.droppableId]]
+        const targetBoard = [...allBoards[destination.droppableId]]
+        sourceBoard.splice(source.index, 1)
+        targetBoard.splice(destination.index, 0, draggableId)
+        return{
+          ...allBoards,
+          [source.droppableId]: sourceBoard,
+          [destination.droppableId]: targetBoard,
+        }
+      })
     }
   };
   return (

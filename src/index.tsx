@@ -36,7 +36,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   font-family: 'Lato', sans-serif;
-  /* background-color: aliceblue; */
+  background-color: #a29bfe;
   color: black
 }
 ol, ul {
