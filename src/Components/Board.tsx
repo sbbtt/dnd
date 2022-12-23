@@ -3,7 +3,8 @@ import { Droppable } from '@hello-pangea/dnd'
 import React, {useRef} from 'react'
 import styled from 'styled-components';
 import DraggableCard from './DraggableCard'
-import { ITodo } from '../atoms';
+import { ITodo, todoState } from '../atoms';
+import { useSetRecoilState } from 'recoil';
 
 interface IForm {
   toDo: string
@@ -49,9 +50,21 @@ interface IBoardProps{
     boardId: string;
 }
 export const Board = ({todos, boardId}:IBoardProps) => {
+  const setTodos = useSetRecoilState(todoState)
   const {register,setValue, handleSubmit} = useForm<IForm>();
   const onValid = ({toDo}:IForm)=>{
-    console.log(toDo)
+    const newTodo = {
+      id: Date.now(),
+      text: toDo,
+    }
+    setTodos(allBoards =>{
+      return{
+        ...allBoards,
+        [boardId]: [
+          ...allBoards[boardId], newTodo
+        ]
+      }
+    })
     setValue('toDo', '')
   }
   return (
