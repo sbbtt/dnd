@@ -7,7 +7,7 @@ export interface ITodo {
     id: number;
     text: string;
 }
-interface ITodoState {
+export interface ITodoState {
     [key: string] : ITodo[]
 }
 export const todoState = atom<ITodoState>({
@@ -22,6 +22,11 @@ export const todoState = atom<ITodoState>({
 
 export const BoardState = atom<string[]>({
     key: 'boards',
-    default: ['To Do', 'Doing', 'Done'],
+    default: ['Tasks', 'Doing', 'Done'],
     effects_UNSTABLE: [persistAtom],
+  });
+
+  export const TrashState = atom<boolean>({
+    key: 'trashcan',
+    default: false,
   });

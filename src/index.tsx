@@ -34,10 +34,11 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-	line-height: 1;
-  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1.2;
   background-color: #a29bfe;
-  color: black
+  color: white
 }
 ol, ul {
 	list-style: none;
