@@ -39,7 +39,7 @@ const Title = styled.h2`
   font-size: 18px;
 `;
 const Error = styled.p`
-  color: orangered;
+  color: #e84393;
   font-size: 14px;
   font-weight: 500;
   text-align: center;

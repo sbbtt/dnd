@@ -5,13 +5,13 @@ import { Droppable } from '@hello-pangea/dnd';
 
 const TrashCanWrapper = styled.div`
   position: absolute;
-  bottom: 25px;
-  right: 25px;
+  bottom: 35px;
+  right: 35px;
   width: 33px;
-  height: 40px;
+  height: 50px;
 
   .trash {
-    background-color: #373C3F;
+    background-color: #55efc4;
     width: 100%;
     height: 100%;
     display: inline-block;
@@ -36,7 +36,7 @@ const TrashCanWrapper = styled.div`
     position: absolute;
     height: 8px;
     width: 48px;
-    background: #373C3F;
+    background: #55efc4;
     top: -10px;
     left: -8px;
     border-top-left-radius: 10px;
@@ -52,7 +52,7 @@ const TrashCanWrapper = styled.div`
     position: absolute;
     width: 13px;
     height: 4px;
-    background: #373C3F;
+    background: #55efc4;
     top: -6px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
