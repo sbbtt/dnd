@@ -1,13 +1,13 @@
-import {useForm} from 'react-hook-form'
-import { Draggable, Droppable } from '@hello-pangea/dnd'
-import React, {useRef} from 'react'
-import styled from 'styled-components';
-import DraggableCard from './DraggableCard'
-import { ITodo, todoState } from '../atoms';
-import { useSetRecoilState } from 'recoil';
+import { useForm } from "react-hook-form";
+import { Draggable, Droppable } from "@hello-pangea/dnd";
+import React, { useRef } from "react";
+import styled from "styled-components";
+import DraggableCard from "./DraggableCard";
+import { ITodo, todoState } from "../atoms";
+import { useSetRecoilState } from "recoil";
 
 interface IForm {
-  toDo: string
+  toDo: string;
 }
 interface IBoardProps {
   todos: ITodo[];
@@ -52,7 +52,7 @@ const Area = styled.div<IArea>`
       ? props.theme.isDraggingOver
       : props.isDraggingFromThis
       ? props.theme.isDraggingFromThis
-      : 'transparent'};
+      : "transparent"};
   transition: background-color 0.2s ease-in-out;
   padding: 20px;
 `;
@@ -74,28 +74,31 @@ const Form = styled.form`
     }
   }
 `;
-export const Board = ({todos, boardId, index}:IBoardProps) => {
-  const setTodos = useSetRecoilState(todoState)
-  const {register,setValue, handleSubmit, clearErrors,
-    formState: { errors },} = useForm<IForm>({
-    mode: 'onChange'
+export const Board = ({ todos, boardId, index }: IBoardProps) => {
+  const setTodos = useSetRecoilState(todoState);
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    clearErrors,
+    formState: { errors },
+  } = useForm<IForm>({
+    mode: "onChange",
   });
-  const onValid = ({toDo}:IForm)=>{
+  const onValid = ({ toDo }: IForm) => {
     clearErrors();
     const newTodo = {
       id: Date.now(),
       text: toDo,
-    }
-    setTodos(allBoards =>{
-      return{
+    };
+    setTodos((allBoards) => {
+      return {
         ...allBoards,
-        [boardId]: [
-          ...allBoards[boardId], newTodo
-        ]
-      }
-    })
-    setValue('toDo', '')
-  }
+        [boardId]: [...allBoards[boardId], newTodo],
+      };
+    });
+    setValue("toDo", "");
+  };
   return (
     <Draggable draggableId={boardId} index={index} key={boardId}>
       {(magic) => (
@@ -110,7 +113,7 @@ export const Board = ({todos, boardId, index}:IBoardProps) => {
               type="text"
               placeholder={`Add task on ${boardId}`}
               autoComplete="off"
-              {...register('toDo', { required: 'we need some text!!' })}
+              {...register("toDo", { required: "type something :)" })}
             />
             {errors.toDo && <Error>{errors.toDo.message}</Error>}
           </Form>
@@ -138,4 +141,4 @@ export const Board = ({todos, boardId, index}:IBoardProps) => {
       )}
     </Draggable>
   );
-}
+};
